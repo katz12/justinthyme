@@ -22,3 +22,10 @@ GIT Workflow
 8. Last but not least, run `git push` to push your changes to the remote repository.
 
 **IMPORTANT:** Don't forget to push your work after you're done or else you will have to do merges (ewww).
+
+Running Django
+=================
+
+* To run the shell: run `/path/to/python manage.py shell` 
+* To start the webapp: run `/path/to/python manage.py runserver`. You can view it at 127.0.0.1:8000/admin
+* To view sql schema: run `/path/to/python manage.py sql recipe_app` 
