@@ -3,8 +3,10 @@ justinthyme
 
 CS411 Databases project - Recipe website
 
-/justinthype - Contains django settings and urls files.
+/justinthyme - Contains django settings and urls files.
+
 /recipe_app - Contains models and views for front end web app.
+
 /sql - Contains raw sqlite3 file.
 
 GIT Workflow
@@ -19,4 +21,4 @@ GIT Workflow
 7. Now you're ready to commit. Run `git commit -m "talk about what changes you did here"`
 8. Last but not least, run `git push` to push your changes to the remote repository.
 
-**IMPORTANT:** Don't forget to push your work after you're done or else you will have to de merges (ewww).
+**IMPORTANT:** Don't forget to push your work after you're done or else you will have to do merges (ewww).
