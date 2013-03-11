@@ -2,9 +2,14 @@ from django.db import models
 
 # Create your models here.
 class Hardware(models.Model):
+    class Meta:
+        db_table = u'hardware'
+    
     name = models.CharField(max_length=50)
 
 class Recipe(models.Model):
+    class Meta:
+        db_table = u'recipe'
     id = models.AutoField(primary_key=True)
     url = models.URLField()
     img_url = models.URLField()
