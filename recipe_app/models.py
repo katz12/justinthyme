@@ -17,7 +17,7 @@ class Recipe(models.Model):
     course = models.CharField(max_length=20, null=True, blank=True)
     method = models.CharField(max_length=20, null=True, blank=True)
     difficulty = models.CharField(max_length=20, null=True, blank=True)
-    wait_time = models.IntegerField()
+    wait_time = models.IntegerField(null=True, blank=True)
     cook_time = models.IntegerField()
     hardware = models.ManyToManyField(Hardware)
 
