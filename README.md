@@ -17,7 +17,7 @@ GIT Workflow
 3. run `git pull` to get any new changes.
 4. Do some work. Do a lot actually.
 5. It's been a while since step 4, run `git status` and look at all the stuff you've changed!
-6. Make sure all of the file you have changed are under **staged for commit** and not **untracked**. For any files under **untracked**, run `git add filename` to add those new files.
+6. Make sure all of the file you have changed are under **Changes to be commited**. For any files under **untracked** or **not staged for commit**, run `git add filename` to add those new files.
 7. Now you're ready to commit. Run `git commit -m "talk about what changes you did here"`
 8. Last but not least, run `git push` to push your changes to the remote repository.
 
