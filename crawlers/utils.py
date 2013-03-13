@@ -37,6 +37,7 @@ def makeListString(list):
 # Do not use this for user generated values.
 # This is prone to SQL Injection
 def insert(table_name, **kwargs):
+    print kwargs
     # Make sure we are using a valid table
     try:
         attrs = tables[table_name]
@@ -48,7 +49,7 @@ def insert(table_name, **kwargs):
 
     # Make sure none of the input parameters are invalid
     for key, value in kwargs.iteritems():
-        if key not in attrs:
+        if (key,True or False) not in attrs:
             print "utils.insert: " + key + ' is not a valid attribute for ' + table_name
             return
     
