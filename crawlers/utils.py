@@ -33,9 +33,6 @@ def makeListString(list):
     s += str(list[-1]) + ')'
     return s
 
-# NOTE
-# Do not use this for user generated values.
-# This is prone to SQL Injection
 def insert(table_name, **kwargs):
     print kwargs
     # Make sure we are using a valid table
@@ -66,18 +63,17 @@ def insert(table_name, **kwargs):
                 next
         else:
             user_attrs.append(attr[0])
-
-            if isinstance(val, str):
-                val = '"' + val + '"'
             user_vals.append(val)
 
 
     attr_string = makeListString(user_attrs)
-    val_string = makeListString(user_vals)
+    sql = 'insert into %s %s values (' % (table_name, attr_string)
+    for _ in user_vals[:-1]:
+        sql += '%s,'
+    sql += '%s)'
 
     cursor = connection.cursor()
-    sql = 'insert into %s %s values %s' % (table_name, attr_string, val_string)
-    cursor.execute(sql)
+    cursor.execute(sql, user_vals)
     transaction.commit_unless_managed()
 
     
