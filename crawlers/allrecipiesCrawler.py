@@ -48,7 +48,7 @@ for n in range(1, 3):
 
 		for this in p('#lblYield'): Servings.append(p(this).text())
 		#temp variables dumped into where they need to go
-#		print RecpName
+		print RecpName
 #		IngrName
 #		IngrAmnt
 #		Description
@@ -61,20 +61,30 @@ for n in range(1, 3):
 
 
 		#parse out the decimal times
-		parsetime = Cookthour[0]
+		if Cookthour:
+			parsetime = Cookthour[0]
 		HTime = ''
 		MTime = ''
 		for sp in parsetime.split():
 			if sp.isdigit():
 				HTime = int(sp)
-		parsetime = Cooktmin[0]
+		if Cooktmin:
+			parsetime = Cooktmin[0]
 		for sp in parsetime.split():
 			if sp.isdigit():
 				MTime = int(sp)
 		#convert all time into minutes
 		Ctime = HTime*60 + MTime
-
-		RecipeDict = { 'name':RecpName[0], 'url' : nextUrl, 'img_url' : ImageURL[0], 
+		if RecpName:
+			Rname = RecpName[0]
+		else:
+			Rname = 'null'
+		if ImageURL:
+			ImgURL = ImageURL[0]
+		else:
+			ImgURL = 'null'
+		
+		RecipeDict = { 'name':Rname, 'url' : nextUrl, 'img_url' : ImgURL, 
 			'cook_time' : Ctime}
 		utils.insert('recipe', **RecipeDict)
 
