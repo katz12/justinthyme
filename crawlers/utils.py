@@ -34,7 +34,6 @@ def makeListString(list):
     return s
 
 def insert(table_name, **kwargs):
-    print kwargs
     # Make sure we are using a valid table
     try:
         attrs = tables[table_name]
@@ -66,6 +65,9 @@ def insert(table_name, **kwargs):
             user_vals.append(val)
 
 
+    # Build SQL qeury
+    # Format:
+    # insert into <table_name> (attr1,attr2,...,attrn) values (val1,val2,...,valn)
     attr_string = makeListString(user_attrs)
     sql = 'insert into %s %s values (' % (table_name, attr_string)
     for _ in user_vals[:-1]:
