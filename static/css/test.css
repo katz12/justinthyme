@@ -1,0 +1,24 @@
+#results{
+    background-color:#BB4;
+    height:200px;
+    width:600px;
+    margin:10px 0px;
+}
+img{
+    height:30px;
+    width:30px;
+}
+span{
+    height:30px;
+    margin:0px 5px;
+}
+.name{
+    width:100px;
+}
+.cook_time{
+    width:10px;
+}
+
+#insert{
+    margin-top:30px;
+}

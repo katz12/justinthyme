@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<head>
+    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/test.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/test.css" %}" type="text/css" />
+</head>
+<form id="name_search">
+    Enter name search: <input type="text" name="search"/>
+</form>
+<div id="results"></div>
+
+<form id="insert">
+    Recipe Insertion:<br>
+    Name: <input id="name" type="text" name="name"/><br> 
+    Url: <input id="url" type="text" name="url"/><br>
+    Cook Time: <input id="cook_time" type="text" name="cook_time"/><br>
+    Image URL: <input id="img_url" type="text" name="img_url"/><br>
+    <input id="submit" type="submit"/>
+</form>

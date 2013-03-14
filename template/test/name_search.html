@@ -1,0 +1,8 @@
+{% for result in results %}
+<div>
+    <span class="name">{{result.name}}</span>
+    <span class="cook_time">{{result.cook_time}}</span>
+    <span class="link"><a href="{{result.url}}">original</a></span>
+    <img class="img" src="{{result.img_url}}"/>
+</div>
+{% endfor %}
