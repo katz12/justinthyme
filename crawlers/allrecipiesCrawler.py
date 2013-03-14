@@ -58,7 +58,7 @@ for n in range(1, 3):
 #		Cookchour
 #		Cooktmin
 #		Cookthour
-#		Servings
+
 
 		#parse out the decimal times
 		parsetime = Cookthour[0]
