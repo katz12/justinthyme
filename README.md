@@ -29,3 +29,8 @@ Running Django
 * To run the shell: run `/path/to/python manage.py shell` 
 * To start the webapp: run `/path/to/python manage.py runserver`. You can view it at 127.0.0.1:8000/admin
 * To view sql schema: run `/path/to/python manage.py sql recipe_app` 
+
+References
+=================
+
+Django raw SQL : https://docs.djangoproject.com/en/dev/topics/db/sql/
