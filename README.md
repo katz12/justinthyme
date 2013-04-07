@@ -34,3 +34,4 @@ References
 =================
 
 Django raw SQL : https://docs.djangoproject.com/en/dev/topics/db/sql/
+Django html templates : https://docs.djangoproject.com/en/dev/ref/templates/api/
