@@ -12,6 +12,15 @@ urlpatterns = patterns('',
     url(r'test/name_search/$', 'recipe_app.views.name_search'),
     url(r'test/recipe_insert/$', 'recipe_app.views.recipe_insert'),
 
+    # Derek add URLs here
+
+    # Kate add URLs here
+
+    # Michal add URLs here
+
+    # Andy add URLs here
+
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

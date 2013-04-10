@@ -1,0 +1,25 @@
+#dada{
+    height:400px;
+    width:500px;
+}
+#header{
+    height:25px;
+    width:500px;
+    background-color:#ABC;
+}
+#data{
+    height:100%;
+    width:500px;
+    background-color:#CBA;
+    overflow:scroll;
+}
+#name_header, .name{
+    height:20px;
+    min-width:400px;
+    float:left;
+}
+#wait_header, .wait{
+    height:20px;
+    min-width:100px;
+    float:left;
+}

@@ -27,3 +27,11 @@ def recipe_insert(request):
         return HttpResponse(status=500)
     transaction.commit_unless_managed()
     return HttpResponse()
+
+# Derek add views here
+
+# Katie add views here
+
+# Michal add views here
+
+# Andy add views here
