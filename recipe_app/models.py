@@ -5,7 +5,7 @@ class Hardware(models.Model):
     class Meta:
         db_table = u'hardware'
     
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, primary_key=True)
 
 class Ingredient(models.Model):
     class Meta:
@@ -31,7 +31,13 @@ class Recipe(models.Model):
     wait_time = models.IntegerField(null=True, blank=True)
     prep_time = models.IntegerField(null=True, blank=True)
     cook_time = models.IntegerField()
-    hardware = models.ManyToManyField(Hardware)
+
+class RecipeHardware(models.Model):
+    class Meta:
+        db_table = u'recipe_hardware'
+
+    recipe = models.ForeignKey('recipe')
+    hardware = models.ForeignKey('hardware', db_column='hardware_name')
 
 class RecipeIngredient(models.Model):
     class Meta:
@@ -39,6 +45,8 @@ class RecipeIngredient(models.Model):
 
     recipe = models.ForeignKey('recipe')
     ingredient = models.ForeignKey('ingredient', db_column='ingredient_name')
+    quantity = models.CharField(max_length=10)
+    measurement = models.CharField(max_length=100)
 
 class User(models.Model):
     class Meta:
@@ -46,5 +54,11 @@ class User(models.Model):
 
     name = models.CharField(max_length=50, primary_key=True)
     pass_hash = models.CharField(max_length=100)
-    allergies = models.CharField(max_length=200)
-    favorites = models.ManyToManyField(Recipe)
+    allergies = models.CharField(max_length=200, null=True, blank=True)
+
+class UserFavorite(models.Model):
+    class Meta:
+        db_table = u'user_favorite'
+
+    user = models.ForeignKey('user', db_column='user_name')
+    recipe = models.ForeignKey('recipe')

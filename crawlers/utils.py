@@ -7,7 +7,17 @@ setup_environ(settings)
 
 from django.db import connection, transaction
 
-tables = { 'recipe' : [ 
+tables = {  'hardware' : [ 
+                        ('name', True) 
+                    ],
+            'ingredient' : [
+                        ('name', True),
+                        ('type', False),
+                        ('dietary_value', False),
+                        ('allergy', False),
+                        ('vegan_vegetarian', False)
+                    ],
+            'recipe' : [ 
                         ('name', True),
                         ('url', True),
                         ('img_url', True),
@@ -15,11 +25,27 @@ tables = { 'recipe' : [
                         ('method', False),
                         ('difficulty', False),
                         ('wait_time', False),
+                        ('prep_time', False),
                         ('cook_time', True) 
                     ],
-            
-            'hardware' : [ 
-                        ('name', True) 
+            'recipe_ingredient' : [
+                        ('recipe_id', True),
+                        ('ingredient_name', True),
+                        ('quantity', True),
+                        ('measurement', True)
+                    ],
+            'recipe_hardware' : [
+                        ('recipe_id', True),
+                        ('hardware_name', True)
+                    ],
+            'user' : [
+                        ('name', True),
+                        ('pass_hash', True),
+                        ('allergies', False)
+                    ],
+            'user_favorite' : [
+                        ('user_name', True),
+                        ('recipe_id', True)
                     ]
         }
 
