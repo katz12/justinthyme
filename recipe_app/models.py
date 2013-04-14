@@ -45,8 +45,7 @@ class RecipeIngredient(models.Model):
 
     recipe = models.ForeignKey('recipe')
     ingredient = models.ForeignKey('ingredient', db_column='ingredient_name')
-    quantity = models.CharField(max_length=10)
-    measurement = models.CharField(max_length=100)
+    quantity = models.CharField(max_length=100)
 
 class User(models.Model):
     class Meta:

@@ -18,6 +18,7 @@ tables = {  'hardware' : [
                         ('vegan_vegetarian', False)
                     ],
             'recipe' : [ 
+                        ('id', True),
                         ('name', True),
                         ('url', True),
                         ('img_url', True),
@@ -31,8 +32,7 @@ tables = {  'hardware' : [
             'recipe_ingredient' : [
                         ('recipe_id', True),
                         ('ingredient_name', True),
-                        ('quantity', True),
-                        ('measurement', False)
+                        ('quantity', True)
                     ],
             'recipe_hardware' : [
                         ('recipe_id', True),
