@@ -21,7 +21,7 @@ class Recipe(models.Model):
     class Meta:
         db_table = u'recipe'
 
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     url = models.URLField()
     img_url = models.URLField()
     name = models.CharField(max_length=200) 
