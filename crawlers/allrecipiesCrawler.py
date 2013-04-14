@@ -131,6 +131,7 @@ for n in range(1, 3):
 			print 'Error: Number of Ingredients != Number of Ammounts'
 		else:
 			for a in range(len(IngrName)):
-				IngrDict[IngrName[a]] = IngrAmnt[a]
-		utils.insert('ingredient', **IngrDict)
+				IngrDict{'recipie_id': , 'ingredient_name' :IngrName[a], 'quantity' :IngrAmnt[a],
+					'measurement': ''}
+		#utils.insert('recipe_ingredient', **IngrDict)
 

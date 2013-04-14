@@ -32,7 +32,7 @@ tables = {  'hardware' : [
                         ('recipe_id', True),
                         ('ingredient_name', True),
                         ('quantity', True),
-                        ('measurement', True)
+                        ('measurement', False)
                     ],
             'recipe_hardware' : [
                         ('recipe_id', True),
