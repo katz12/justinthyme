@@ -7,6 +7,9 @@ setup_environ(settings)
 
 from django.db import connection, transaction
 
+# https://docs.djangoproject.com/en/dev/ref/exceptions/ 
+
+
 tables = {  'hardware' : [ 
                         ('name', True) 
                     ],
@@ -59,6 +62,7 @@ def makeListString(list):
     s += str(list[-1]) + ')'
     return s
 
+@transaction.commit_on_success
 def insert(table_name, **kwargs):
     # Make sure we are using a valid table
     try:
@@ -69,11 +73,14 @@ def insert(table_name, **kwargs):
             print name
         return
 
+
     # Make sure none of the input parameters are invalid
     for key, value in kwargs.iteritems():
-        if (key,True or False) not in attrs:
-            print "utils.insert: " + key + ' is not a valid attribute for ' + table_name
-            return
+		if (key, True) in attrs or (key, False) in attrs:
+			pass
+		else:
+			print "utils.insert: " + key + ' is not a valid attribute for ' + table_name
+			return
     
     # Generate list of attrs and vals
     user_vals = []
@@ -101,7 +108,15 @@ def insert(table_name, **kwargs):
     sql += '%s)'
 
     cursor = connection.cursor()
+#    try:
     cursor.execute(sql, user_vals)
+#    except DatabaseError:
+#        print 'duplicate detected'
+#        return
+
     transaction.commit_unless_managed()
+#   #except DatabaseError:
+#	#	print 'utils.insert: Duplicate entry'
+    	
 
     
