@@ -2,7 +2,9 @@ from pyquery import PyQuery as pq
 import time
 import utils
 #change the range to (1,2205) to get all A-Z pages
-for n in range(1, 3):
+#20 results pr page
+recipe_id = 8360
+for n in range(418, 2205):
 
 	urln = 'http://allrecipes.com/recipes/ViewAll.aspx?Page=' + str(n)
 	time.sleep(1)			#Sleeping is done according to the Web Crawling Standards
@@ -39,7 +41,8 @@ for n in range(1, 3):
 		for this in p('#itemTitle'): RecpName.append(p(this).text())
 		for this in p('#lblIngName'): 
 			if p(this).text() != '':
-				IngrName.append(p(this).text())
+				if p(this).attr('class') == 'ingredient-name':
+					IngrName.append(p(this).text())
 		for this in p('#lblIngAmount'): IngrAmnt.append(p(this).text())
 
 		for this in p('span.plaincharacterwrap.break'): Description.append(p(this).text())
@@ -76,15 +79,13 @@ for n in range(1, 3):
 		for sp in parsetimep.split():
 			if sp.isdigit():
 				HpTime = int(sp)
-			#else:
-			#	HpTime = int('0')
+
 		if Cookpmin:
 			parsetimep = Cookpmin[0]
 		for sp in parsetimep.split():
 			if sp.isdigit():
 				MpTime = int(sp)
-			#else:
-			#	MpTime = int('0')
+
 
 
 		parsetime = ''
@@ -94,8 +95,7 @@ for n in range(1, 3):
 		for sp in parsetime.split():
 			if sp.isdigit():
 				HTime = int(sp)
-			#else:
-			#	Htime = int('0')
+
 
 		parsetime = ''
 		if Cooktmin:
@@ -104,12 +104,8 @@ for n in range(1, 3):
 		for sp in parsetime.split():
 			if sp.isdigit():
 				MTime = int(sp)
-			#else:
-			#	MTime = int('0')
 
 		#convert all time into minutes
-		#print HTime
-		#print MTime
 		Ctime = HTime*60 + MTime
 		Ptime = HpTime*60 + MpTime
 		if RecpName:
@@ -121,17 +117,28 @@ for n in range(1, 3):
 		else:
 			ImgURL = 'null'
 		
-		RecipeDict = { 'name':Rname, 'url' : nextUrl, 'img_url' : ImgURL, 
+		RecipeDict = { 'id': recipe_id, 'name':Rname, 'url' : nextUrl, 'img_url' : ImgURL, 
 			'cook_time' : Ctime, 'wait_time' : Ptime}
-		#utils.insert('recipe', **RecipeDict)
-		IngrDict = {}
-#		print IngrName
-#		print IngrAmnt
-		if(len(IngrName) != len(IngrAmnt)):
-			print 'Error: Number of Ingredients != Number of Ammounts'
-		else:
-			for a in range(len(IngrName)):
-				IngrDict{'recipie_id': , 'ingredient_name' :IngrName[a], 'quantity' :IngrAmnt[a],
-					'measurement': ''}
-		#utils.insert('recipe_ingredient', **IngrDict)
+		utils.insert('recipe', **RecipeDict)
 
+
+		IngrDict = {}
+		#if len(IngrName) > len(IngrAmnt):
+			#print IngrName
+			#print IngrAmnt
+
+		for a in range(len(IngrName)):
+			if len(IngrAmnt) < len(IngrName):
+				IngrAmnt.append('') #in the case where season to preference is the 'ingredient'
+				#print len(IngrAmnt)
+			IngrDict = { 'recipe_id':recipe_id, 'ingredient_name':IngrName[a], 'quantity':IngrAmnt[a]}
+			utils.insert('recipe_ingredient', **IngrDict)
+
+		#--------build the ingredient list---------
+		
+		
+
+
+
+
+		recipe_id += 1
