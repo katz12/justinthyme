@@ -25,6 +25,8 @@ class Recipe(models.Model):
     url = models.URLField()
     img_url = models.URLField()
     name = models.CharField(max_length=200) 
+    description = models.CharField(max_length=3000)
+    servings = models.CharField(max_length = 20)
     course = models.CharField(max_length=20, null=True, blank=True)
     method = models.CharField(max_length=20, null=True, blank=True)
     difficulty = models.CharField(max_length=20, null=True, blank=True)
