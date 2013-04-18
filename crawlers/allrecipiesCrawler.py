@@ -92,8 +92,14 @@ for n in range(1, 220):
         else:
 	        ImgURL = 'null'
 
-        RecipeDict = { 'id': recipe_id, 'name':Rname, 'description' : Description, 
-            'url' : nextUrl, 'img_url' : ImgURL, 'cook_time' : Ctime, 'wait_time' : Ptime}
+        RecipeDict = { 'id': recipe_id, 
+            'name':Rname, 
+            #'description' : Description,
+            #'servings' : Servings, 
+            'url' : nextUrl,
+            'img_url' : ImgURL, 
+            'cook_time' : Ctime, 
+            'wait_time' : Ptime}
         utils.insert('recipe', **RecipeDict)
 
 
@@ -106,7 +112,9 @@ for n in range(1, 220):
 	        if len(IngrAmnt) < len(IngrName):
 		        IngrAmnt.append('') #in the case where "season to preference" is the 'ingredient'
 		        #print len(IngrAmnt)
-	        IngrDict = { 'recipe_id':recipe_id, 'ingredient_name':IngrName[a], 'quantity':IngrAmnt[a]}
+	        IngrDict = { 'recipe_id':recipe_id, 
+                'ingredient_name':IngrName[a], 
+                'quantity':IngrAmnt[a]}
 	        utils.insert('recipe_ingredient', **IngrDict)
 
         #--------build the ingredient list---------
