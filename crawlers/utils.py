@@ -6,6 +6,7 @@ setup_environ(settings)
 
 
 from django.db import connection, transaction
+from pyquery import PyQuery as pq
 
 # https://docs.djangoproject.com/en/dev/ref/exceptions/ 
 
@@ -23,6 +24,8 @@ tables = {  'hardware' : [
             'recipe' : [ 
                         ('id', True),
                         ('name', True),
+                        ('description', True),
+                        ('servings', True),
                         ('url', True),
                         ('img_url', True),
                         ('course', False),
@@ -62,7 +65,28 @@ def makeListString(list):
     s += str(list[-1]) + ')'
     return s
 
-@transaction.commit_on_success
+def makeDecimalTime(str):
+    parsetime = ''     
+    if str:
+        parsetime = str[0]
+    Time = 0
+    for sp in parsetime.split():
+        if sp.isdigit():
+	        Time = int(sp)
+    return Time
+
+def getPage(str):
+    i = True
+    while i:
+        try:
+            S = pq(url=str)
+        except:
+            print "trying connection..."
+        else:
+            i = False
+        return S
+
+#@transaction.commit_on_success
 def insert(table_name, **kwargs):
     # Make sure we are using a valid table
     try:
@@ -108,14 +132,14 @@ def insert(table_name, **kwargs):
     sql += '%s)'
 
     cursor = connection.cursor()
-#    try:
+    #try:
     cursor.execute(sql, user_vals)
-#    except DatabaseError:
-#        print 'duplicate detected'
-#        return
+    #except:
+    #    print 'duplicate detected'
+    #    return
 
     transaction.commit_unless_managed()
-#   #except DatabaseError:
+#   #except:
 #	#	print 'utils.insert: Duplicate entry'
     	
 
