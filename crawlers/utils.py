@@ -24,8 +24,8 @@ tables = {  'hardware' : [
             'recipe' : [ 
                         ('id', True),
                         ('name', True),
-                        ('description', True),
-                        ('servings', True),
+                        #('description', True),
+                        #('servings', True),
                         ('url', True),
                         ('img_url', True),
                         ('course', False),
