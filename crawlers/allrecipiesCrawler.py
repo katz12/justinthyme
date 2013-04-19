@@ -3,7 +3,7 @@ import time
 import utils
 #change the range to (1,2205) to get all A-Z pages
 #20 results pr page
-recipe_id = 0
+recipe_id = 1
 for n in range(1, 220):
     a = n * 10
     #grab every 10th page, to provide a wide spread of results
@@ -91,11 +91,16 @@ for n in range(1, 220):
 	        ImgURL = ImageURL[0]
         else:
 	        ImgURL = 'null'
+        if not Servings:
+            Servings = ['null']
+
+        decript = utils.makeListString(Description)
+
 
         RecipeDict = { 'id': recipe_id, 
             'name':Rname, 
-            #'description' : Description,
-            #'servings' : Servings, 
+            'description' : decript,
+            'servings' : Servings[0], 
             'url' : nextUrl,
             'img_url' : ImgURL, 
             'cook_time' : Ctime, 
