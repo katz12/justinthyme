@@ -34,6 +34,12 @@ def recipe_insert(request):
 def index(request):
     return render_to_response('index.html')
 
+def contact(request):
+    return render_to_response('site/ContactUs.html')
+
+def about(request):
+    return render_to_response('site/AboutUs.html')
+
 # Michal add views here
 def search(request):
     return render_to_response('search/search.html')
