@@ -35,5 +35,7 @@ def index(request):
     return render_to_response('index.html')
 
 # Michal add views here
+def search(request):
+    return render_to_response('search/search.html')
 
 # Andy add views here

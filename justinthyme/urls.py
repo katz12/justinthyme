@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^site/$', 'recipe_app.views.index'),
 
     # Michal add URLs here
+    url(r'^search/$', 'recipe_app.views.search'),
 
     # Andy add URLs here
 
