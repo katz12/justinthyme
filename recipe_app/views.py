@@ -31,6 +31,8 @@ def recipe_insert(request):
 # Derek add views here
 
 # Katie add views here
+def index(request):
+    return render_to_response('index.html')
 
 # Michal add views here
 
