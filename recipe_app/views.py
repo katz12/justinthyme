@@ -35,7 +35,7 @@ def index(request):
     return render_to_response('index.html')
 
 def contact(request):
-    return render_to_response('ContactUs.html')
+    return render_to_response('site/ContactUs.html')
 
 # Michal add views here
 
