@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     # Kate add URLs here
     url(r'^site/$', 'recipe_app.views.index', name='index'),
-    url(r'site/contacts/$', 'recipe_app.views.contact'),
+    url(r'site/contacts/$', 'recipe_app.views.contact', name='contact'),
 
     # Michal add URLs here
 
