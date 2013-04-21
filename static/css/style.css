@@ -8,7 +8,7 @@ Released for free under a Creative Commons Attribution 3.0 License
 body {
 	margin: 0;
 	padding: 0;
-	background: url(images/footer-bg.png) repeat;
+	background: url(../images/footer-bg.png) repeat;
 	font-family: 'Arvo', serif;
 	font-size: 14px;
 	color: #333333;
@@ -70,7 +70,7 @@ a:hover {
 /* Header */
 
 #header-wrapper {
-	background: url(images/wrapper-bg.png) repeat-x left top;
+	background: url(../images/wrapper-bg.png) repeat-x left top;
 }
 
 #header {
@@ -297,7 +297,7 @@ a:hover {
 	height: 50px;
 	margin: 0px auto 80px auto;
 	padding: 20px 0 0 0;
-	background: url(images/footer-bg.png) repeat;
+	background: url(../images/footer-bg.png) repeat;
 }
 
 #footer p {
