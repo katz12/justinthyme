@@ -46,3 +46,38 @@ def about(request):
 # Andy add views here
 def api_test(request):
     return HttpResponse(json.dumps({'test' : 'passed'}), mimetype="application/json")
+
+def api_search(request):
+    search_text = request.GET.get('search_text')
+    results = Recipe.objects.raw('select * from recipe join recipe_ingredient on recipe.id=recipe_ingredient.recipe_id where name like %s', ['%' + search_text + '%'])
+
+    recipes = []
+    recipe_id = -1
+    for row in results:
+        if (recipe_id != row.recipe_id):
+            if (recipe_id != -1):
+                recipe['ingredients'] = ingredients
+                recipes.append(recipe)
+            recipe_id = row.recipe_id
+            recipe = {}
+            recipe['id'] = row.recipe_id
+            recipe['url'] = row.url
+            recipe['img_url'] = row.img_url
+            recipe['name'] = row.name
+            recipe['description'] = row.description
+            recipe['servings'] = row.servings
+            recipe['course'] = row.course
+            recipe['method'] = row.method
+            recipe['difficulty'] = row.difficulty
+            recipe['wait_time'] = row.wait_time
+            recipe['prep_time'] = row.prep_time
+            recipe['cook_time'] = row.cook_time
+
+            ingredients = []
+            ingredients.append({'quantity' : row.quantity,
+                                'name' : row.ingredient_name})
+        else:
+            ingredients.append({'quantity' : row.quantity,
+                                'name' : row.ingredient_name})
+
+    return HttpResponse(json.dumps(recipes), mimetype="application/json")
