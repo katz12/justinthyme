@@ -40,6 +40,10 @@ def contact(request):
 def about(request):
     return render_to_response('site/AboutUs.html')
 
+def print_page(request):
+    result = Recipe.objects.raw('select * from recipe, recipe_ingredient where recipe.id == 5 AND recipe.id == recipe_ingredient.recipe_id')
+    return render_to_response('site/result.html', {'result': result})
+
 # Michal add views here
 
 # Andy add views here
