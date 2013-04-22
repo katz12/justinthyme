@@ -3,6 +3,7 @@ from recipe_app.models import Recipe
 from django.http import HttpResponse
 
 from django.db import transaction, connection
+import json
 
 def test(request):
     return render_to_response('test.html')
@@ -47,3 +48,5 @@ def print_page(request):
 # Michal add views here
 
 # Andy add views here
+def api_test(request):
+    return HttpResponse(json.dumps({'test' : 'passed'}), mimetype="application/json")
