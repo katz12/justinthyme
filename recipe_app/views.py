@@ -42,8 +42,9 @@ def about(request):
     return render_to_response('site/AboutUs.html')
 
 def print_page(request):
-    result = Recipe.objects.raw('select * from recipe, recipe_ingredient where recipe.id == 5 AND recipe.id == recipe_ingredient.recipe_id')
-    return render_to_response('site/result.html', {'result': result})
+    ingredient_result = Recipe.objects.raw('select * from recipe, recipe_ingredient where recipe.id == 422 AND recipe.id == recipe_ingredient.recipe_id')
+    result = Recipe.objects.raw('select * from recipe where recipe.id == 422')
+    return render_to_response('site/result.html', {'result': result, 'ingredient_result': ingredient_result})
 
 # Michal add views here
 

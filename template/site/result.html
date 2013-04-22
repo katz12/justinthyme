@@ -39,11 +39,12 @@
 					<span class="servings" style="padding-left: 10px;">Servings: {{res.servings}}</span><br><br><br><br><br><br><br>
 					<!--Ingredients go here-->
 					<span class="recipe_ingredient"><b>Ingredients: </b><br>
-					
-						<span class="quantity">{{res.quantity}}</span>
-						<span class="ingredient_name">{{res.ingredient_name}} </span>
-						</span><br><br>
-					
+					{% for ingredient in ingredient_result %}
+						<span class="quantity"><li>{{ingredient.quantity}}</span>
+						<span class="ingredient_name">{{ingredient.ingredient_name}} </li></span>
+						</span><br>
+					{% endfor %}
+					<br>
 					<span class="description"><b>Directions: </b><br>
 						{{res.description}}</span>
 					
