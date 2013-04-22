@@ -1,0 +1,67 @@
+{% load staticfiles %}
+<head>
+	<script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+	<meta http-equiv="Content-Type" content="text/html"; charset="windows-1252" />
+	<link rel = "stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+	<title>Just In Thyme About Us</title>
+	<script type="text/javascript" src=jquery-1.7.1.min.js></script>
+</head>
+
+<body>
+
+<div class="poptrox-popup" style="background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 20px; display: none; position: fixed; z-index: 101; width: 200px; height: 100px; left: 668.5px; top: 161.5px; margin-left: -120px; margin-top: -70px;"></div>
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h1><a>Just In Thyme</a></h1>
+			</div>
+		</div>
+
+		<div id="menu">
+			<u1>
+				<li ><a href="{% url "index" %}">Home</a></li>
+				<li><a>Recipes</a></li>
+				<li><a href="{% url "about" %}">About Us</a></li>
+				<li><a href="{% url "contact" %}">Contact Us</a></li>
+			</u1>
+		</div>
+	</div>
+
+	<div id="wrapper">
+		<div id="page">
+			<div id="box1">
+				<div class="gallery">
+					<img src="http://i14.photobucket.com/albums/a339/mini_me3393/Katie_zps9a7e3ab6.png" align="left"></img>
+					<a><p style="padding-left: 270px;"><b>Katie Chrzanowski</b><br>
+						Has no idea what she's doing. Likes pretty colors and designs.<br>
+						Wishes that cookie baking was a major.<br>
+						Wants to go to Disneyworld to celebrate the end of the project.<br>
+					</p></a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+					<img src="http://i14.photobucket.com/albums/a339/mini_me3393/Derek_zpsc865e354.png" align="left"></img>
+					<a><p style="padding-left: 270px;"><b>Derek Drescher</b><br>
+						Web crawling machine. Works until it's done. Never gives up, trusts his instincts.<br>
+						Lives off of Doritos and Mountain Dew.<br>
+					</p></a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+					<img src="http://i14.photobucket.com/albums/a339/mini_me3393/Andy_zps405c37ce.png" align="left"></img>
+					<a><p style="padding-left: 280px;"><b>Andy Katz</b><br>
+						Secretly a wizard. Mobile developing machine. Taught everyone how to not be<br> 
+						bad at stuff. Strange relationship with senioritis.<br>
+					</p></a><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+					<img src="http://i14.photobucket.com/albums/a339/mini_me3393/Michal_zps3bfd31a2.png" align="left"></img>
+					<a><p style="padding-left: 270px;"><b>Michal Rys</b><br>
+						Probably a ninja. Name pronounced "Me-how." Gets work done.<br>
+						I don't know your life, Michal.<br>
+					</p></a><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="footer">
+		<p><a>Copyright (c) Just In Thyme. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a></a></p>
+	</div>
+
+
+</body>
