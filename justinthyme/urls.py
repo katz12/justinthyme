@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     # Michal add URLs here
 
     # Andy add URLs here
+    url(r'^api/test/$', 'recipe_app.views.api_test'),
 
 
     # Uncomment the admin/doc line below to enable admin documentation:
