@@ -4,7 +4,7 @@ from django.core.management import setup_environ
 from justinthyme import settings
 setup_environ(settings)
 
-
+from recipe_app.models import Recipe
 from django.db import connection, transaction
 from pyquery import PyQuery as pq
 
@@ -61,8 +61,8 @@ def makeListString(list):
 
     s = '('
     for l in list[:-1]:
-        s += str(l) + ','
-    s += str(list[-1]) + ')'
+        s += unicode(l) + ','
+    s += unicode(list[-1]) + ')'
     return s
 
 def makeDecimalTime(str):
@@ -75,7 +75,41 @@ def makeDecimalTime(str):
 	        Time = int(sp)
     return Time
 
+def FN_minutesParser(str):
+    if str == '': 
+        return 0
+    if str[-3:-1].isdigit():
+        return int(str[-3:-1])
+    elif str[-2:-1].isdigit():
+        return int(str[-2:-1])
+    else: return 0
+
+
+def FN_hourParser(str):
+    if str == '':
+        return 0
+    if str[3] == 'H':
+        if str[3].isdigit():
+            return int(str[3])
+        else: return 0
+        return int(str[2])
+    elif str[4] == 'H':
+        if str[2:4].isdigit():
+            return int(str[2:4])
+        else: return 0
+    else: return 0
+
+def descriptionize(list):
+    newlist = []
+    newstring = ''
+    for this in list:
+        newlist.append(this + '\n' + '\n')
+    for this in newlist:
+        newstring += this
+    return newstring
+
 def getPage(str):
+    S = ''
     i = True
     while i:
         try:
@@ -95,7 +129,7 @@ def insert(table_name, **kwargs):
         print "utils.insert: invalid table name, valid tables are:" 
         for name in tables:
             print name
-        return
+        return 0
 
 
     # Make sure none of the input parameters are invalid
@@ -104,7 +138,7 @@ def insert(table_name, **kwargs):
 			pass
 		else:
 			print "utils.insert: " + key + ' is not a valid attribute for ' + table_name
-			return
+			return 0
     
     # Generate list of attrs and vals
     user_vals = []
@@ -114,7 +148,7 @@ def insert(table_name, **kwargs):
         if val == None:
             if attr[1] == True:
                 print attr[0], "must have a value"
-                return
+                return 0
             else:
                 next
         else:
@@ -131,16 +165,22 @@ def insert(table_name, **kwargs):
         sql += '%s,'
     sql += '%s)'
 
-    cursor = connection.cursor()
-    #try:
-    cursor.execute(sql, user_vals)
-    #except:
-    #    print 'duplicate detected'
-    #    return
-
-    transaction.commit_unless_managed()
-#   #except:
-#	#	print 'utils.insert: Duplicate entry'
-    	
+    #duplicate checking
+    dup = str(user_vals[1])
+    result = ''
+    result = Recipe.objects.raw('SELECT name, id FROM recipe WHERE name LIKE %s', [dup])
+    awk = ''
+    #avoids out of range errors
+    for p in result:
+        awk = p.name   
+    #if duplicate found, return -1 error, no transaction committed
+    if awk != dup:
+        cursor = connection.cursor()
+        cursor.execute(sql, user_vals)
+        transaction.commit_unless_managed()
+        return 0
+    else:
+        print 'duplicate not inserted'
+        return -1	
 
     
