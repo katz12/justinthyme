@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from recipe_app.models import Recipe, User
+from recipe_app.models import Recipe, User, UserFavorite
 from django.http import HttpResponse
 
 from django.db import transaction, connection
@@ -62,7 +62,11 @@ def api_login(request):
     result = User.objects.raw('select * from user where name = %s AND pass_hash = %s', [user_name, hashed_password])
 
     if len(list(result)) == 1:
-        return HttpResponse(json.dumps({'success' : True, 'user_name' : user_name}), mimetype="application/json")
+        favs = UserFavorite.objects.raw('select * from user_favorite where user_name = %s', [user_name])
+        fav_ids = []
+        for fav in favs:
+            fav_ids.append(fav.recipe_id)
+        return HttpResponse(json.dumps({'success' : True, 'user_name' : user_name, 'favorites' : fav_ids}), mimetype="application/json")
     else:
         return HttpResponse(json.dumps({'success' : False}), mimetype="application/json")
     
@@ -106,8 +110,9 @@ def api_search(request):
             ingredients.append({'quantity' : row.quantity,
                                 'name' : row.ingredient_name})
 
-    # One last add to get last result
-    recipe['ingredients'] = ingredients
-    recipes.append(recipe)
+    if len(list(results)) is not 0:
+        # One last add to get last result
+        recipe['ingredients'] = ingredients
+        recipes.append(recipe)
 
     return HttpResponse(json.dumps({'recipes' : recipes}), mimetype="application/json")
