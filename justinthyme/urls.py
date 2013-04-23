@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     # Andy add URLs here
     url(r'^api/test/$', 'recipe_app.views.api_test'),
     url(r'^api/search/$', 'recipe_app.views.api_search'),
+    url(r'^api/login/$', 'recipe_app.views.api_login'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

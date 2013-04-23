@@ -60,6 +60,11 @@ def api_login(request):
     password = request.GET.get('password')
     hashed_password = hashlib.sha512(password + salt).hexdigest()
     result = User.objects.raw('select * from user where name = %s AND pass_hash = %s', [user_name, hashed_password])
+
+    if len(list(result)) == 1:
+        return HttpResponse(json.dumps({'success' : True, 'user_name' : user_name}), mimetype="application/json")
+    else:
+        return HttpResponse(json.dumps({'success' : False}), mimetype="application/json")
     
 
 def api_search(request):
