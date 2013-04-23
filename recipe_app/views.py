@@ -52,6 +52,10 @@ def print_page(request):
 # Michal add views here
 def search(request):
     return render_to_response('search/search.html')
+def recipe_search(request):
+    search = request.GET.get('search')
+    results = Recipe.objects.raw('select * from recipe where name like %s',['%' + search + '%'])
+    return render_to_response('search/name_search.html', {'results' : results})
 
 # Andy add views here
 def api_test(request):

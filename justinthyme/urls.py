@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 
     # Michal add URLs here
     url(r'^search/$', 'recipe_app.views.search'),
+    url(r'search/recipe_search/$', 'recipe_app.views.recipe_search'),
 
     # Andy add URLs here
     url(r'^api/test/$', 'recipe_app.views.api_test'),
