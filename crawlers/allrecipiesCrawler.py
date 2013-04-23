@@ -3,10 +3,11 @@ import time
 import utils
 #change the range to (1,2205) to get all A-Z pages
 #20 results pr page
-recipe_id = 1
-for n in range(1, 220):
-    a = n * 10
-    #grab every 10th page, to provide a wide spread of results
+def allCrawler(recipe_id, n):
+#recipe_id = 10
+#for n in range(1, 220):
+    a = n * 17
+    #grab every 17th page, to provide a wide spread of results
     urln = 'http://allrecipes.com/recipes/ViewAll.aspx?Page=' + str(a)
     time.sleep(1)   #Sleeping is done according to the Web Crawling Standards S = pq(url=urln)
     S = utils.getPage(urln)
@@ -16,7 +17,7 @@ for n in range(1, 220):
     urlist = []
     for u in templst: 
         urlist.append(u.find('a').attr('href'))
-    print 'list made ' + str(n)
+    print 'all list made ' + str(n)
 
     for nextUrl in urlist:
         time.sleep(1)		#Sleeping is done according to the Web Crawling Standards
@@ -94,9 +95,10 @@ for n in range(1, 220):
         if not Servings:
             Servings = ['null']
 
-        decript = utils.makeListString(Description)
+       
+        decript = utils.descriptionize(Description)
 
-
+        k = 0
         RecipeDict = { 'id': recipe_id, 
             'name':Rname, 
             'description' : decript,
@@ -104,24 +106,24 @@ for n in range(1, 220):
             'url' : nextUrl,
             'img_url' : ImgURL, 
             'cook_time' : Ctime, 
-            'wait_time' : Ptime}
-        utils.insert('recipe', **RecipeDict)
+            'prep_time' : Ptime}
+        k = utils.insert('recipe', **RecipeDict)
 
 
         IngrDict = {}
         #if len(IngrName) > len(IngrAmnt):
 	        #print IngrName
 	        #print IngrAmnt
-
-        for a in range(len(IngrName)):
-	        if len(IngrAmnt) < len(IngrName):
-		        IngrAmnt.append('') #in the case where "season to preference" is the 'ingredient'
-		        #print len(IngrAmnt)
-	        IngrDict = { 'recipe_id':recipe_id, 
-                'ingredient_name':IngrName[a], 
-                'quantity':IngrAmnt[a]}
-	        utils.insert('recipe_ingredient', **IngrDict)
-
-        #--------build the ingredient list---------
+        if k != -1:
+            for a in range(len(IngrName)):
+                if len(IngrAmnt) < len(IngrName):
+                    IngrAmnt.append('') #in the case where "season to preference" is the 'ingredient'
+	                #print len(IngrAmnt)
+                IngrDict = { 'recipe_id':recipe_id, 
+                    'ingredient_name':IngrName[a], 
+                    'quantity':IngrAmnt[a]}
+    	        l = utils.insert('recipe_ingredient', **IngrDict)
 
         recipe_id += 1
+
+    return recipe_id
