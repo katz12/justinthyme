@@ -1,9 +1,12 @@
 from django.shortcuts import render_to_response
-from recipe_app.models import Recipe
+from recipe_app.models import Recipe, User
 from django.http import HttpResponse
 
 from django.db import transaction, connection
 import json
+import hashlib, uuid
+
+salt = '4b3807c84925478fabb40091f8646d11'
 
 def test(request):
     return render_to_response('test.html')
@@ -52,9 +55,22 @@ def print_page(request):
 def api_test(request):
     return HttpResponse(json.dumps({'test' : 'passed'}), mimetype="application/json")
 
+def api_login(request):
+    user_name = request.GET.get('user_name')
+    password = request.GET.get('password')
+    hashed_password = hashlib.sha512(password + salt).hexdigest()
+    result = User.objects.raw('select * from user where name = %s AND pass_hash = %s', [user_name, hashed_password])
+    
+
 def api_search(request):
     search_text = request.GET.get('search_text')
-    results = Recipe.objects.raw('select * from recipe join recipe_ingredient on recipe.id=recipe_ingredient.recipe_id where name like %s', ['%' + search_text + '%'])
+    page = request.GET.get('page')
+    if page is not None:
+        offset = int(page)*10
+    else:
+        offset = 0
+        
+    results = Recipe.objects.raw('select * from recipe_ingredient join (select * from recipe where name like %s limit %s,10) as R on R.id=recipe_ingredient.recipe_id', ['%' + search_text + '%', offset])
 
     recipes = []
     recipe_id = -1
@@ -85,4 +101,8 @@ def api_search(request):
             ingredients.append({'quantity' : row.quantity,
                                 'name' : row.ingredient_name})
 
-    return HttpResponse(json.dumps(recipes), mimetype="application/json")
+    # One last add to get last result
+    recipe['ingredients'] = ingredients
+    recipes.append(recipe)
+
+    return HttpResponse(json.dumps({'recipes' : recipes}), mimetype="application/json")
