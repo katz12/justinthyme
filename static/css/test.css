@@ -21,11 +21,20 @@ span{
     height:30px;
     margin:0px 5px;
 }
+table{
+    table-layout:fixed;
+}
+.result{
+    height:40px;
+    border-style:solid solid none solid;
+    border-width:5px;
+}
 .name{
-    width:100px;
+    width:500px;
 }
 .cook_time{
-    width:10px;
+    width:100px;
+    text-align:right;
 }
 
 #insert{
