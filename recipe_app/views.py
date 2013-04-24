@@ -19,22 +19,23 @@ def name_search(request):
 def ingredient_search(request):
     search = request.GET.get('search')
     search = search.split(', ')
-    query = ""
+    
+ 
+    query = "select * from ((select recipe_id as id from recipe_ingredient where "
     for i, ingr in enumerate(search):
 	    if i==(len(search)-1):
-	    	query +="ingredient_name = "
-	    	query+=str(ingr)
+	    	query += "ingredient_name = %s"
 	    	break
 	    else:
 	    	query+="ingredient_name = "
-	    	query+=str(ingr)
+	    	query+="%s"
 	    	query+=" or "
+    query+=") natural join recipe) group by id order by count(*) desc"
     
-	
+    
+    print search	
     print query
-    myquery = str('select * from ((select recipe_id as id from recipe_ingredient where %s) natural join recipe)',[query])
-    print myquery
-    results = Recipe.objects.raw('select * from ((select recipe_id as id from recipe_ingredient where %s) natural join recipe)',[query])
+    results = Recipe.objects.raw(query,search)
 
 
 
