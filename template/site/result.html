@@ -33,18 +33,31 @@
 			<div id="box1">
 				{% for res in result %}
 				<p>
-					<img class="img" src="{{res.img_url}}", align="left" width="250" height="250"/>
-					<span class="name" style="font-size: 24px;padding-left: 10px;"><a href="{{res.url}}">{{res.name}}</a></span><br>
-					<span class="cook_time" style="padding-left: 10px;">Cook time: {{res.cook_time}} minutes</span><br>
+					{% if res.img_url %}
+						<img class="img" src="{{res.img_url}}", align="left" width="250" height="250"/>
+					{% else %}
+						<img class="img" src="http://i14.photobucket.com/albums/a339/mini_me3393/default_zpsc5a4c8ae.gif", align="left" width="250" height="250"/>
+					{% endif %}
+					<span class="name" style="font-size: 21px;padding-left: 10px;"><a href="{{res.url}}">{{res.name}}</a></span><br>
+					{% if res.difficulty %}
+						<span class="difficulty" style="padding-left:10px">Difficulty: {{res.difficulty}}</span><br>
+					{% endif %}
+					{% if res.prep_time %}
+						<span class="prep_time" style="padding-left:10px">Prep time: {{res.prep_time}} minutes</span><br>
+					{% endif %}
+					{% if res.cook_time %}
+						<span class="cook_time" style="padding-left: 10px;">Total time: {{res.cook_time}} minutes</span><br>
+					{% endif %}
+					<br>
 					<span class="servings" style="padding-left: 10px;">Servings: {{res.servings}}</span><br><br><br><br><br><br><br>
 					<!--Ingredients go here-->
-					<span class="recipe_ingredient"><b>Ingredients: </b><br>
+					<span class="recipe_ingredient"><b>Ingredients: </b>
 					{% for ingredient in ingredient_result %}
 						<span class="quantity"><li>{{ingredient.quantity}}</span>
 						<span class="ingredient_name">{{ingredient.ingredient_name}} </li></span>
-						</span><br>
+						</span>
 					{% endfor %}
-					<br>
+					<br><br>
 					<span class="description"><b>Directions: </b><br>
 						{{res.description}}</span>
 					
