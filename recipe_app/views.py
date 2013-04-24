@@ -130,7 +130,7 @@ def api_search(request):
     search_text = request.GET.get('search_text')
     page = request.GET.get('page')
     if page is not None:
-        offset = int(page-1)*10
+        offset = int(page)*10
     else:
         offset = 0
         
@@ -141,7 +141,7 @@ def api_favorites(request):
     user_name = request.GET.get('user_name')
     page = request.GET.get('page')
     if page is not None:
-        offset = int(page-1)*10
+        offset = int(page)*10
     else:
         offset = 0
 
