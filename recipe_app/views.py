@@ -16,6 +16,31 @@ def name_search(request):
     results = Recipe.objects.raw('select * from recipe where name like %s',['%' + search + '%'])
     return render_to_response('test/name_search.html', {'results' : results})
 
+def ingredient_search(request):
+    search = request.GET.get('search')
+    search = search.split(', ')
+    query = ""
+    for i, ingr in enumerate(search):
+	    if i==(len(search)-1):
+	    	query +="ingredient_name = "
+	    	query+=str(ingr)
+	    	break
+	    else:
+	    	query+="ingredient_name = "
+	    	query+=str(ingr)
+	    	query+=" or "
+    
+	
+    print query
+    myquery = str('select * from ((select recipe_id as id from recipe_ingredient where %s) natural join recipe)',[query])
+    print myquery
+    results = Recipe.objects.raw('select * from ((select recipe_id as id from recipe_ingredient where %s) natural join recipe)',[query])
+
+
+
+
+    return render_to_response('test/name_search.html', {'results' : results})
+
 def recipe_insert(request):
     name = request.GET.get('name')
     url = request.GET.get('url')

@@ -12,6 +12,10 @@ urlpatterns = patterns('',
     url(r'test/name_search/$', 'recipe_app.views.name_search'),
     url(r'test/recipe_insert/$', 'recipe_app.views.recipe_insert'),
 
+
+    url(r'test/ingredient_search/$', 'recipe_app.views.ingredient_search'),
+
+
     # Derek add URLs here
 
     # Kate add URLs here

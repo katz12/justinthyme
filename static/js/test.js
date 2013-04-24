@@ -17,6 +17,24 @@ $(document).ready(function(){
             });
         }
     });
+    $('#ingredient_search input').keypress(function(key){
+        
+        // Enter Key
+        if(key.which == 13){
+            key.preventDefault();
+            var search_text = $(this).val();
+            $.ajax({url : 'ingredient_search',
+                    data : {search : search_text},
+                    success : function(data){
+                        $('#results_ingredients').html(data).fadeIn(300);
+                    },
+                    error : function(data){
+                        $('#results_ingredients').html('There was an error.').fadeIn(300);
+                    }
+            });
+        }
+    });
+
 
     $('#submit').click(function(event){
         event.preventDefault();
