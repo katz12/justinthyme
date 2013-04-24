@@ -45,8 +45,8 @@ def about(request):
     return render_to_response('site/AboutUs.html')
 
 def print_page(request):
-    ingredient_result = Recipe.objects.raw('select * from recipe, recipe_ingredient where recipe.id == 422 AND recipe.id == recipe_ingredient.recipe_id')
-    result = Recipe.objects.raw('select * from recipe where recipe.id == 422')
+    ingredient_result = Recipe.objects.raw('select * from recipe, recipe_ingredient where recipe.id == 330 AND recipe.id == recipe_ingredient.recipe_id')
+    result = Recipe.objects.raw('select * from recipe where recipe.id == 330')
     return render_to_response('site/result.html', {'result': result, 'ingredient_result': ingredient_result})
 
 # Michal add views here
@@ -98,7 +98,7 @@ def api_search(request):
     search_text = request.GET.get('search_text')
     page = request.GET.get('page')
     if page is not None:
-        offset = int(page)*10
+        offset = int(page-1)*10
     else:
         offset = 0
         
@@ -109,7 +109,7 @@ def api_favorites(request):
     user_name = request.GET.get('user_name')
     page = request.GET.get('page')
     if page is not None:
-        offset = int(page)*10
+        offset = int(page-1)*10
     else:
         offset = 0
 
