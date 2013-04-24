@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_favorites"
+        android:orderInCategory="99"
+        android:showAsAction="ifRoom|withText"
+        android:title="Favorites"/>
+    
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="Log Out"/>
+
+</menu>
