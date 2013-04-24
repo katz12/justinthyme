@@ -8,12 +8,12 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'justinthyme.views.home', name='home'),
     # url(r'^justinthyme/', include('justinthyme.foo.urls')),
-    url(r'^search/$', 'recipe_app.views.test'),
-    url(r'search/name_search/$', 'recipe_app.views.name_search'),
-    url(r'test/recipe_insert/$', 'recipe_app.views.recipe_insert'),
+    url(r'site/search/$', 'recipe_app.views.test'),
+    url(r'site/search/name_search/$', 'recipe_app.views.name_search'),
+    url(r'site/test/recipe_insert/$', 'recipe_app.views.recipe_insert'),
 
 
-    url(r'search/ingredient_search/$', 'recipe_app.views.ingredient_search'),
+    url(r'site/search/ingredient_search/$', 'recipe_app.views.ingredient_search'),
 
 
     # Derek add URLs here
