@@ -11,17 +11,7 @@ from pyquery import PyQuery as pq
 # https://docs.djangoproject.com/en/dev/ref/exceptions/ 
 
 
-tables = {  'hardware' : [ 
-                        ('name', True) 
-                    ],
-            'ingredient' : [
-                        ('name', True),
-                        ('type', False),
-                        ('dietary_value', False),
-                        ('allergy', False),
-                        ('vegan_vegetarian', False)
-                    ],
-            'recipe' : [ 
+tables = {   'recipe' : [ 
                         ('id', True),
                         ('name', True),
                         ('description', True),
@@ -39,10 +29,6 @@ tables = {  'hardware' : [
                         ('recipe_id', True),
                         ('ingredient_name', True),
                         ('quantity', True)
-                    ],
-            'recipe_hardware' : [
-                        ('recipe_id', True),
-                        ('hardware_name', True)
                     ],
             'user' : [
                         ('name', True),
