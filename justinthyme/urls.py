@@ -8,12 +8,12 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'justinthyme.views.home', name='home'),
     # url(r'^justinthyme/', include('justinthyme.foo.urls')),
-    url(r'^test/$', 'recipe_app.views.test'),
-    url(r'test/name_search/$', 'recipe_app.views.name_search'),
+    url(r'^search/$', 'recipe_app.views.test'),
+    url(r'search/name_search/$', 'recipe_app.views.name_search'),
     url(r'test/recipe_insert/$', 'recipe_app.views.recipe_insert'),
 
 
-    url(r'test/ingredient_search/$', 'recipe_app.views.ingredient_search'),
+    url(r'search/ingredient_search/$', 'recipe_app.views.ingredient_search'),
 
 
     # Derek add URLs here
@@ -25,8 +25,8 @@ urlpatterns = patterns('',
     url(r'site/result/$', 'recipe_app.views.print_page', name='print_page'),
 
     # Michal add URLs here
-    url(r'^search/$', 'recipe_app.views.search'),
-    url(r'search/recipe_search/$', 'recipe_app.views.recipe_search'),
+    #url(r'^search/$', 'recipe_app.views.search'),
+    #url(r'search/recipe_search/$', 'recipe_app.views.recipe_search'),
 
     # Andy add URLs here
     url(r'^api/test/$', 'recipe_app.views.api_test'),
