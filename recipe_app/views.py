@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from recipe_app.models import Recipe, User
+from recipe_app.models import Recipe, User, UserFavorite
 from django.http import HttpResponse
 
 from django.db import transaction, connection
@@ -93,10 +93,37 @@ def api_login(request):
     result = User.objects.raw('select * from user where name = %s AND pass_hash = %s', [user_name, hashed_password])
 
     if len(list(result)) == 1:
-        return HttpResponse(json.dumps({'success' : True, 'user_name' : user_name}), mimetype="application/json")
+        favs = UserFavorite.objects.raw('select * from user_favorite where user_name = %s', [user_name])
+        fav_ids = []
+        for fav in favs:
+            fav_ids.append(fav.recipe_id)
+        return HttpResponse(json.dumps({'success' : True, 'user_name' : user_name, 'favorites' : fav_ids}), mimetype="application/json")
     else:
         return HttpResponse(json.dumps({'success' : False}), mimetype="application/json")
-    
+
+def api_favorite(request):
+    user_name = request.GET.get('user_name')
+    fav_id = request.GET.get('fav_id')
+    try:
+        cursor = connection.cursor()
+        cursor.execute('insert into user_favorite (user_name,recipe_id) values (%s,%s)', [user_name, fav_id])
+        transaction.commit_unless_managed()
+    except Exception, e:
+        return HttpResponse(json.dumps({'succes' : False, 'error' : str(e)}), mimetype="application/json")
+
+    return HttpResponse(json.dumps({'success' : True}), mimetype="application/json")
+
+def api_unfavorite(request):
+    user_name = request.GET.get('user_name')
+    fav_id = request.GET.get('fav_id')
+    try:
+        cursor = connection.cursor()
+        cursor.execute('delete from user_favorite where user_name = %s AND recipe_id = %s', [user_name, fav_id])
+        transaction.commit_unless_managed()
+    except Exception, e:
+        return HttpResponse(json.dumps({'succes' : False, 'error' : str(e)}), mimetype="application/json")
+
+    return HttpResponse(json.dumps({'success' : True}), mimetype="application/json")
 
 def api_search(request):
     search_text = request.GET.get('search_text')
@@ -107,7 +134,20 @@ def api_search(request):
         offset = 0
         
     results = Recipe.objects.raw('select * from recipe_ingredient join (select * from recipe where name like %s limit %s,10) as R on R.id=recipe_ingredient.recipe_id', ['%' + search_text + '%', offset])
+    return formatRecipes(results)
 
+def api_favorites(request):
+    user_name = request.GET.get('user_name')
+    page = request.GET.get('page')
+    if page is not None:
+        offset = int(page)*10
+    else:
+        offset = 0
+
+    results = Recipe.objects.raw('select * from recipe_ingredient join ((select id,recipe_id from user_favorite where user_name = %s limit %s,10) as F join recipe on F.recipe_id = recipe.id) as R on R.recipe_id=recipe_ingredient.recipe_id', [user_name, offset])
+    return formatRecipes(results)
+
+def formatRecipes(results):
     recipes = []
     recipe_id = -1
     for row in results:
@@ -137,8 +177,9 @@ def api_search(request):
             ingredients.append({'quantity' : row.quantity,
                                 'name' : row.ingredient_name})
 
-    # One last add to get last result
-    recipe['ingredients'] = ingredients
-    recipes.append(recipe)
+    if len(list(results)) is not 0:
+        # One last add to get last result
+        recipe['ingredients'] = ingredients
+        recipes.append(recipe)
 
     return HttpResponse(json.dumps({'recipes' : recipes}), mimetype="application/json")
