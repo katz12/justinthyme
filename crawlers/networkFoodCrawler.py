@@ -27,7 +27,12 @@ def netCrawler(recipe_id, n):
         for this in p('.fn_name'):
                 RecpName.append(p(this).text())
         print RecpName
-    
+
+        if utils.isDuplicate(RecpName[0]):
+            recipe_id += 1
+            print 'duplicate'
+            continue
+
         ImgURL = ''
         b = p('img#recipe-player-th')
         for this in b:
@@ -41,6 +46,9 @@ def netCrawler(recipe_id, n):
                 unparsedCtime = p(this).attr('content')
             elif p(this).attr('itemprop') == 'prepTime':
                 unparsedPtime = p(this).attr('content')
+        
+        difficulty = ''
+        difficulty = p(c[-1]).text()
     
         Ctime = utils.FN_minutesParser(unparsedCtime) + 60*(utils.FN_hourParser(unparsedCtime))
         Ptime = utils.FN_minutesParser(unparsedPtime) + 60*(utils.FN_hourParser(unparsedPtime))
@@ -51,7 +59,7 @@ def netCrawler(recipe_id, n):
         IngrName = []
         d = p('.kv-ingred-list1')
         #d is now a list of all the ingred lists
-        for this in d:
+        for this in d('li'):
             IngrName.append(p(this).text())
     
         #the ingredients here are smashed together with their ammounts, which I can't parse out.
@@ -77,7 +85,8 @@ def netCrawler(recipe_id, n):
             'description' : decript,
             'servings' : servings[0], 
             'url' : nextUrl,
-            'img_url' : ImgURL, 
+            'img_url' : ImgURL,
+            'difficulty' : difficulty,
             'cook_time' : Ctime, 
             'prep_time' : Ptime}
         k = utils.insert('recipe', **RecipeDict)

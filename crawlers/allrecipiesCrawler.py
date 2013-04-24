@@ -41,6 +41,11 @@ def allCrawler(recipe_id, n):
             RecpName.append(p(this).text())
         print RecpName
 
+        if utils.isDuplicate(RecpName[0]):
+            print 'duplicate'
+            recipe_id += 1
+            continue
+
         for this in p('#lblIngName'): 
 	        if p(this).text() != '':
 		        if p(this).attr('class') == 'ingredient-name':

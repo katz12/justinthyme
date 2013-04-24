@@ -11,17 +11,7 @@ from pyquery import PyQuery as pq
 # https://docs.djangoproject.com/en/dev/ref/exceptions/ 
 
 
-tables = {  'hardware' : [ 
-                        ('name', True) 
-                    ],
-            'ingredient' : [
-                        ('name', True),
-                        ('type', False),
-                        ('dietary_value', False),
-                        ('allergy', False),
-                        ('vegan_vegetarian', False)
-                    ],
-            'recipe' : [ 
+tables = {   'recipe' : [ 
                         ('id', True),
                         ('name', True),
                         ('description', True),
@@ -39,10 +29,6 @@ tables = {  'hardware' : [
                         ('recipe_id', True),
                         ('ingredient_name', True),
                         ('quantity', True)
-                    ],
-            'recipe_hardware' : [
-                        ('recipe_id', True),
-                        ('hardware_name', True)
                     ],
             'user' : [
                         ('name', True),
@@ -108,6 +94,27 @@ def descriptionize(list):
         newstring += this
     return newstring
 
+def isDuplicate(name):
+    result = ''
+    result = Recipe.objects.raw('SELECT name, id FROM recipe WHERE name LIKE %s', [name])
+    awk = ''
+    #avoids out of range errors
+    for p in result:
+        awk = p.name
+    return awk == name
+
+def newID(cur):
+    result = ''
+    while(True):
+        result = Recipe.objects.raw('SELECT id FROM recipe WHERE id LIKE %s', [cur])
+        awk = ''
+        for p in result:
+            awk = p.id
+        if awk == cur:
+            cur += 1
+        else:
+            return cur
+
 def getPage(str):
     S = ''
     i = True
@@ -167,20 +174,18 @@ def insert(table_name, **kwargs):
 
     #duplicate checking
     dup = str(user_vals[1])
-    result = ''
-    result = Recipe.objects.raw('SELECT name, id FROM recipe WHERE name LIKE %s', [dup])
-    awk = ''
+  #  result = ''
+ #   result = Recipe.objects.raw('SELECT name, id FROM recipe WHERE name LIKE %s', [dup])
+#    awk = ''
     #avoids out of range errors
-    for p in result:
-        awk = p.name   
-    #if duplicate found, return -1 error, no transaction committed
-    if awk != dup:
+ #   for p in result:
+#        awk = p.name   
+    #if duplicate found, return -1 error, no transaction committed awk != dup:
+    if isDuplicate(dup):
+        print 'duplicate not inserted'
+        return -1
+    else:
         cursor = connection.cursor()
         cursor.execute(sql, user_vals)
         transaction.commit_unless_managed()
         return 0
-    else:
-        print 'duplicate not inserted'
-        return -1	
-
-    
