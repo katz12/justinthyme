@@ -4,25 +4,6 @@ Design by Free CSS Templates
 http://www.freecsstemplates.org
 Released for free under a Creative Commons Attribution 3.0 License
 */
-#results{
-    background-color:#BB4;
-    height:200px;
-    width:600px;
-    margin:10px 0px;
-    overflow:scroll;
-}
-span{
-    height:30px;
-    margin:0px 5px;
-}
-.name{
-    width:100px;
-}
-.cook_time{
-    width:10px;
-}
-
-
 body {
 	margin: 0;
 	padding: 0;

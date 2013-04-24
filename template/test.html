@@ -1,26 +1,84 @@
 {% load staticfiles %}
+
 <head>
-    <script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/test.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.js" %}"></script>
+    	<script type="text/javascript" src="{% static "js/test.js" %}"></script>
+	<meta http-equiv="Content-Type" content="text/html"; charset="windows-1252" />
+	<link rel = "stylesheet" type="text/css" href="{% static "css/style.css" %}" />
     <link rel="stylesheet" href="{% static "css/test.css" %}" type="text/css" />
+	<title>Just In Thyme</title>
+	<!--<script type="text/javascript" src=jquery-1.7.1.min.js></script>-->
 </head>
+
+<body>
+
+<div class="poptrox-popup" style="background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 20px; display: none; position: fixed; z-index: 101; width: 200px; height: 100px; left: 668.5px; top: 161.5px; margin-left: -120px; margin-top: -70px;"></div>
+	<div id="header-wrapper">
+		<div id="header" class="container">
+			<div id="logo">
+				<h1><a>Just In Thyme</a></h1>
+			</div>
+		</div>
+
+		<div id="menu">
+			<u1>
+				<li ><a href="{% url "index" %}">Home</a></li>
+				<li><a>Recipes</a></li>
+				<li><a href="{% url "about" %}">About Us</a></li>
+				<li><a href="{% url "contact" %}">Contact Us</a></li>
+			</u1>
+		</div>
+	</div>
+
+	<div id="wrapper">
+		<div id="page">
+			<div id="box1">
+				<p>
+
+
+
+
+
+
+
 <form id="name_search">
-    Enter name search: <input type="text" name="search"/>
+    What do you want to make? <input type="text" name="search"/>
 </form>
 <div id="results"></div>
 
 <form id="ingredient_search">
-    Enter ingredients: <input type="text" name="ingredients"/>
+    Prefered ingredients? <input type="text" name="ingredients"/>
 </form>
 <div id="results_ingredients"></div>
 
 
-
+<!--
 <form id="insert">
-    Recipe Insertion:<br>
+    Prefered ingredients?<br>
     Name: <input id="name" type="text" name="name"/><br> 
     Url: <input id="url" type="text" name="url"/><br>
     Cook Time: <input id="cook_time" type="text" name="cook_time"/><br>
     Image URL: <input id="img_url" type="text" name="img_url"/><br>
     <input id="submit" type="submit"/>
 </form>
+-->
+
+
+
+
+
+
+				</p>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="footer">
+		<p><a>Copyright (c) Just In Thyme. All rights reserved. Design by <a href="http://www.freecsstemplates.org">FCT</a></a></p>
+	</div>
+
+
+</body>
+
